@@ -6,7 +6,21 @@
 			"description": "Default Uncontrolled Changelist",
 			"files": [
 				"D:/Unreal/Simian-Subdivisions/Content/Levels/Level_Game_BuiltData.uasset",
-				"D:/Unreal/Simian-Subdivisions/Content/Levels/Level_Game.umap"
+				"D:/Unreal/Simian-Subdivisions/Content/Levels/Level_Game.umap",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/BP_MovingPlatform.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/BP_Pickups.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Levels/Level_Start.umap",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/BP_Player.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/UI/WG_EndScreen.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/WG_EndScreen.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/UI/WG_Score.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/UI/WG_StartScreen.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/WG_StartScreen.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/UI/WG_Timer.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/WG_Timer.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/WG_Score.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/Blueprints/Menu_GameMode.uasset",
+				"D:/Unreal/Simian-Subdivisions/Content/UI/WG_Options.uasset"
 			]
 		}
 	]
