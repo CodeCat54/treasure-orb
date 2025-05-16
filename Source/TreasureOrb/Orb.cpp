@@ -20,9 +20,6 @@ AOrb::AOrb()
 	OrbMesh = CreateDefaultSubobject<UStaticMeshComponent>("OrbMesh");
 	SetRootComponent(OrbMesh);
 
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
-	AutoReceiveInput = EAutoReceiveInput::Player0;
-
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
