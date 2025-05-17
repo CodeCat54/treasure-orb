@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "PhysicsEngine/BodyInstance.h"
+#include "Math.h"
 
 AOrb::AOrb()
 {
@@ -25,7 +26,8 @@ AOrb::AOrb()
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 400.0f;
+	CameraBoom->TargetArmLength = 600.0f;
+	CameraBoom->SetRelativeRotation(FRotator(-60.0f, 0.0f, 0.0f));
 	CameraBoom->bUsePawnControlRotation = true;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -69,19 +71,21 @@ void AOrb::Move(const FInputActionValue& Value)
 	AOrb::LimitVelocity();
 }
 
-void AOrb::Look(const FInputActionValue& Value)
-{
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(-LookAxisVector.Y);
-	}
-}
-
 void AOrb::LimitVelocity()
 {
 	FVector NewVelocity = GetVelocity().GetClampedToSize(0, Speed);
 	OrbMesh->SetPhysicsLinearVelocity(FVector(NewVelocity), false);
+}
+
+void AOrb::Look(const FInputActionValue& Value)
+{
+	FVector2D LookAxisVector = Value.Get<FVector2D>();
+	float NewPitch = FMath::Clamp<float>((CameraBoom->GetRelativeRotation().Pitch + LookAxisVector.Y), -60.0f, 60.0f);
+	float NewYaw = CameraBoom->GetRelativeRotation().Yaw + LookAxisVector.X;
+	CameraBoom->SetRelativeRotation(FRotator(NewPitch, NewYaw, 0.0f));
+	//if (Controller != nullptr)
+	//{
+		//AddControllerYawInput(LookAxisVector.X);
+		//AddControllerPitchInput(FMath::Clamp<float>(LookAxisVector.Y, -60.0f, 60.0f));
+	//}
 }
