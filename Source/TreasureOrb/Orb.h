@@ -30,7 +30,7 @@ class TREASUREORB_API AOrb : public APawn
 
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* DefaultMappingContext;
+	UInputMappingContext* MappingContext;
 
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -40,6 +40,9 @@ class TREASUREORB_API AOrb : public APawn
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Speed = 2000.f;
+
 public:
 	// Sets default values for this character's properties
 	AOrb();
@@ -47,6 +50,8 @@ public:
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
+
+	void LimitVelocity();
 
 	/** Called for camera input */
 	void Look(const FInputActionValue& Value);
