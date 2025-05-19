@@ -66,15 +66,16 @@ void AOrb::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void AOrb::Move(const FInputActionValue& Value)
 {
 	FVector2D InputValue = Value.Get<FVector2D>();
-	FVector MovementVector = InputValue.X * FollowCamera->GetForwardVector() + InputValue.Y * FollowCamera->GetRightVector();
-	OrbMesh->AddForce(FVector(MovementVector.X * Speed, MovementVector.Y * Speed, 0), FName(NAME_None),true);
+	FVector MovementVector = InputValue.X * FollowCamera->GetForwardVector() * Speed + InputValue.Y * FollowCamera->GetRightVector() * Speed;
+	OrbMesh->AddForce(FVector(MovementVector.X, MovementVector.Y, 0.0), FName(NAME_None),true);
 	AOrb::LimitVelocity();
 }
 
 void AOrb::LimitVelocity()
 {
-	FVector NewVelocity = GetVelocity().GetClampedToSize(0, Speed);
-	OrbMesh->SetPhysicsLinearVelocity(FVector(NewVelocity), false);
+	FVector TempVelocity(GetVelocity().X, GetVelocity().Y, 0.0);
+	FVector ClampedVelocity = TempVelocity.GetClampedToSize(0.0, Speed);
+	OrbMesh->SetPhysicsLinearVelocity(FVector(ClampedVelocity.X, ClampedVelocity.Y, GetVelocity().Z), false);
 }
 
 void AOrb::Look(const FInputActionValue& Value)
@@ -83,9 +84,5 @@ void AOrb::Look(const FInputActionValue& Value)
 	float NewPitch = FMath::Clamp<float>((CameraBoom->GetRelativeRotation().Pitch + LookAxisVector.Y), -60.0f, 60.0f);
 	float NewYaw = CameraBoom->GetRelativeRotation().Yaw + LookAxisVector.X;
 	CameraBoom->SetRelativeRotation(FRotator(NewPitch, NewYaw, 0.0f));
-	//if (Controller != nullptr)
-	//{
-		//AddControllerYawInput(LookAxisVector.X);
-		//AddControllerPitchInput(FMath::Clamp<float>(LookAxisVector.Y, -60.0f, 60.0f));
-	//}
 }
+

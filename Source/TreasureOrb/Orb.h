@@ -41,7 +41,7 @@ class TREASUREORB_API AOrb : public APawn
 	UInputAction* LookAction;
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Speed = 2000.f;
+	double Speed = 2000.0;
 
 public:
 	// Sets default values for this character's properties
@@ -51,6 +51,8 @@ protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
+	// Limit X and Y to a shared max speed
+	// Z needs to be considered 0 or vertical momentum kills horizontal speed
 	void LimitVelocity();
 
 	/** Called for camera input */
